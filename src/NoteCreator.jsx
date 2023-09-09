@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 
-function NoteCreator({onSubmit}) {
+function NoteCreator({onCreate}) {
 
     const[newNote, setNewNote] = useState(
         {
@@ -13,7 +13,12 @@ function NoteCreator({onSubmit}) {
     function handleNoteCreatorChange(event) {
         const {name, value} = event.target;
 
+        // console.log("name", name);
+        
+        // console.log("value", value);
+
         setNewNote((previousValue) => {
+            // console.log("previousValue", previousValue )
         return {
                 ...previousValue,
                 [name] : value
@@ -23,13 +28,21 @@ function NoteCreator({onSubmit}) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        onSubmit(newNote);
+        // console.log("new note: ", newNote)
+        onCreate(newNote);
+
+        setNewNote(
+            {
+                title: "",
+                content:""
+            }
+        );
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <input name="title" placeholder="Title" value={newNote.title} onChange={handleNoteCreatorChange}/>
-            <textarea name="content" placeHolder="Content" value={newNote.content} rows="10" onChange={handleNoteCreatorChange}/>
+            <textarea name="content" placeholder="Content" value={newNote.content} rows="10" onChange={handleNoteCreatorChange}/>
             <button>Add</button>
         </form>
     )

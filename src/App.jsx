@@ -10,6 +10,8 @@ function App() {
 
     function addNote(newNote) {
         setNotes((previousValue) => {
+            console.log("the previous value", previousValue);
+            console.log("the new note", newNote)
             return (
                 [
                 ...previousValue,
@@ -17,19 +19,27 @@ function App() {
                 ]
             )
         });
-        console.log(notes);
     }
 
     function deleteNote(noteID) {
-
+        setNotes(
+            notes.filter((note, index) => index !== noteID)
+        ); 
     }
 
-    const noteList = notes.map((note, index) => <Note key={index} id={index} title={note.title} content={note.title} />)
+const noteList = notes.map((note, index) => 
+    <Note 
+        key={index} 
+        id={index} 
+        title={note.title} 
+        content={note.content} 
+        onDelete={deleteNote} 
+    />)
 
     return (
         <>
             <Header />
-            <NoteCreator onSubmit={addNote}/>
+            <NoteCreator onCreate={addNote}/>
             {noteList}
             <Footer />
         </>
