@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import Button from '@mui/material/Button';
+
 
 
 function NoteCreator({onCreate}) {
@@ -40,10 +42,10 @@ function NoteCreator({onCreate}) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form>
             <input name="title" placeholder="Title" value={newNote.title} onChange={handleNoteCreatorChange}/>
             <textarea name="content" placeholder="Content" value={newNote.content} rows="10" onChange={handleNoteCreatorChange}/>
-            <button>Add</button>
+            <button onClick={handleSubmit}>Add</button>
         </form>
     )
 }
