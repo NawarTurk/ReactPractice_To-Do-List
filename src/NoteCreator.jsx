@@ -14,16 +14,13 @@ function NoteCreator({onCreate}) {
             content:""
         });
 
+    const [isExapnded,setIsExpanded] = useState(false);
+
 
     function handleNoteCreatorChange(event) {
         const {name, value} = event.target;
-
-        // console.log("name", name);
-        
-        // console.log("value", value);
-
         setNewNote((previousValue) => {
-            // console.log("previousValue", previousValue )
+    
         return {
                 ...previousValue,
                 [name] : value
@@ -33,7 +30,7 @@ function NoteCreator({onCreate}) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        // console.log("new note: ", newNote)
+  
         onCreate(newNote);
 
         setNewNote(
@@ -42,17 +39,31 @@ function NoteCreator({onCreate}) {
                 content:""
             }
         );
+        
+        setIsExpanded(() => false); //??
+
+    }
+
+    function handleTextAreaClick() {
+        setIsExpanded(() => true)
     }
 
     return (
         <form>
-            <input name="title" placeholder="Title" value={newNote.title} onChange={handleNoteCreatorChange}/>
-            <textarea name="content" placeholder="Content" value={newNote.content} rows="10" onChange={handleNoteCreatorChange}/>
-            <Zoom in={true}>
-                <Fab onClick={handleSubmit} size="medium">
-                    <AddIcon />   
-                </Fab>
-            </Zoom>
+            <div>
+                {isExapnded && <input name="title" placeholder="Title" value={newNote.title} onChange={handleNoteCreatorChange}/>}
+            </div>
+            <textarea name="content" placeholder= {isExapnded?"Add content":"Click here to start a new note"} value={newNote.content} rows={isExapnded?"10":"3"} onClick={handleTextAreaClick} onChange={handleNoteCreatorChange}/>
+            
+            {isExapnded && <div>
+                <Zoom in={true}>
+                    <Fab onClick={handleSubmit} size="medium">
+                        <AddIcon />
+                    </Fab>
+                </Zoom>
+            </div>
+            }
+
         </form>
     )
 }
