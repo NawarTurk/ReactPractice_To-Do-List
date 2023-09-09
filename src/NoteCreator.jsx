@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
-import Button from '@mui/material/Button';
+
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import Zoom from '@mui/material/Zoom';
 
 
 
@@ -45,7 +48,11 @@ function NoteCreator({onCreate}) {
         <form>
             <input name="title" placeholder="Title" value={newNote.title} onChange={handleNoteCreatorChange}/>
             <textarea name="content" placeholder="Content" value={newNote.content} rows="10" onChange={handleNoteCreatorChange}/>
-            <button onClick={handleSubmit}>Add</button>
+            <Zoom in={true}>
+                <Fab onClick={handleSubmit} size="medium">
+                    <AddIcon />   
+                </Fab>
+            </Zoom>
         </form>
     )
 }
